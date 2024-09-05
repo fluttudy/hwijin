@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OptionController extends GetxController {
@@ -15,7 +16,11 @@ class OptionController extends GetxController {
   final phoneNumberAuthentication = false.obs;
 
   // SignUp First Second Page
-  final createAccount = false.obs;
+  final passwordController = TextEditingController();
+  final passwordCheckController = TextEditingController();
+  final createId = false.obs;
+  final createPassword = false.obs;
+  final checkPassword = false.obs;
 
   // DropDown
   var agency = ['SKT', 'KT', 'LG U+'];

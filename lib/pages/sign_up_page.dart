@@ -151,7 +151,7 @@ class SignUpPage extends StatelessWidget {
                             onTap: () {
                               optionController.signUp_checkFirst &&
                                       optionController.signUp_checkSecond
-                                  ? Get.to(SignUpStepFirst())
+                                  ? Get.to(const SignUpStepFirst())
                                   : null;
                             },
                             child: Container(

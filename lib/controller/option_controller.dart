@@ -36,6 +36,12 @@ class OptionController extends GetxController {
   var email = ['gmail.com', 'naver.com', 'daum.net'];
   var selected_email = 'gmail.com';
 
+  // Coupon page
+  final coupon_body = 1.obs;
+
+  // Coupon Add page
+  final checkButton = true.obs;
+
   void update_SignUpCheckAll(bool value) {
     signUp_checkAll = value;
     signUp_checkFirst = value;

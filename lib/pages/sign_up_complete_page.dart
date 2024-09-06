@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:setting_check/controller/option_controller.dart';
 import 'package:setting_check/controller/textfield_controller.dart';
+import 'package:setting_check/pages/coupon_page.dart';
 import 'package:setting_check/pages/sign_up_step/sign_up_step_second.dart';
 import 'package:setting_check/utils/paddings.dart';
 import 'package:setting_check/utils/phone_size.dart';
@@ -109,9 +110,7 @@ class SignUpComplete extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              optionController.phoneNumberAuthentication.value
-                                  ? Get.to(SignUpStepSecond())
-                                  : null;
+                              Get.to(CouponPage());
                             },
                             child: Obx(
                               () {

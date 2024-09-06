@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:setting_check/controller/option_controller.dart';
-import 'package:setting_check/pages/sign_up_step/sign_up_step_first.dart';
+import 'package:setting_check/main.dart';
 import 'package:setting_check/pages/sign_up_step/sign_up_step_third.dart';
 import 'package:setting_check/utils/colors.dart';
 import 'package:setting_check/utils/paddings.dart';
@@ -35,74 +35,15 @@ class SignUpStepSecond extends StatelessWidget {
                         main_padding.copyWith(top: PhoneSize.height * 0.01) * 2,
                     child: Column(
                       children: [
-                        TextField(
-                          onChanged: (text) {
-                            if (text.length > 3) {
-                              optionController.createId(true);
-                            } else {
-                              optionController.createId(false);
-                            }
-                          },
-                          style: const TextStyle(fontSize: 20),
-                          cursorColor: main_color,
-                          decoration: InputDecoration(
-                              focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: main_color, width: 1.5)),
-                              hintText: '아이디 (4~13자리 이내)',
-                              hintStyle: TextStyle(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  fontSize: 18.0)),
-                        ),
+                        _createId(optionController),
                         SizedBox(
                           height: PhoneSize.height * 0.01,
                         ),
-                        TextField(
-                          controller: optionController.passwordController,
-                          obscureText: true,
-                          onChanged: (text) {
-                            if (text.length > 9) {
-                              optionController.createPassword(true);
-                            } else {
-                              optionController.createPassword(false);
-                            }
-                          },
-                          style: const TextStyle(fontSize: 20),
-                          cursorColor: main_color,
-                          decoration: InputDecoration(
-                              focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: main_color, width: 1.5)),
-                              hintText: '비밀번호 (10~20자리 이내)',
-                              hintStyle: TextStyle(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  fontSize: 18.0)),
-                        ),
+                        _createPassword(optionController),
                         SizedBox(
                           height: PhoneSize.height * 0.01,
                         ),
-                        TextField(
-                          controller: optionController.passwordCheckController,
-                          obscureText: true,
-                          onChanged: (text) {
-                            if (text ==
-                                optionController.passwordController.text) {
-                              optionController.checkPassword(true);
-                            } else {
-                              optionController.checkPassword(false);
-                            }
-                          },
-                          style: const TextStyle(fontSize: 20),
-                          cursorColor: main_color,
-                          decoration: InputDecoration(
-                              focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: main_color, width: 1.5)),
-                              hintText: '비밀번호 확인',
-                              hintStyle: TextStyle(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  fontSize: 18.0)),
-                        ),
+                        _checkPassword(optionController),
                       ],
                     )),
                 Expanded(
@@ -117,7 +58,7 @@ class SignUpStepSecond extends StatelessWidget {
                           onTap: () {
                             optionController.createId.value &&
                                     optionController.createPassword.value &&
-                                    optionController.checkPassword.value
+                                    optionController.checkPw.value
                                 ? Get.to(SignUpStepThird())
                                 : null;
                           },
@@ -133,7 +74,7 @@ class SignUpStepSecond extends StatelessWidget {
                                   color: optionController.createId.value &&
                                           optionController
                                               .createPassword.value &&
-                                          optionController.checkPassword.value
+                                          optionController.checkPw.value
                                       ? const Color.fromRGBO(0, 179, 117, 1)
                                       : Colors.grey,
                                 ),
@@ -267,4 +208,181 @@ Widget _pageInfo() {
         '아이디와 비밀번호를\n입력해 주세요.',
         style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w500),
       ));
+}
+
+Widget _createId(OptionController optionController) {
+  return Obx(() {
+    return TextField(
+      onChanged: (text) {
+        if (text.isNotEmpty) {
+          optionController.idIconVisible(true);
+        } else {
+          optionController.idIconVisible(false);
+        }
+
+        if (text.length > 3) {
+          optionController.createId(true);
+        } else {
+          optionController.createId(false);
+        }
+      },
+      style: const TextStyle(fontSize: 20),
+      cursorColor: main_color,
+      decoration: InputDecoration(
+          suffixIcon: optionController.idIconVisible.value
+              ? SizedBox(
+                  width: PhoneSize.width * 0.15,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        Icons.check,
+                        size: PhoneSize.width * 0.07,
+                        color: optionController.createId.value
+                            ? main_color
+                            : Colors.grey.withOpacity(0.7),
+                      )
+                    ],
+                  ),
+                )
+              : null,
+          focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: main_color, width: 1.5)),
+          hintText: '아이디 (4~13자리 이내)',
+          hintStyle:
+              TextStyle(color: Colors.grey.withOpacity(0.5), fontSize: 18.0)),
+    );
+  });
+}
+
+Widget _createPassword(OptionController optionController) {
+  return Obx(() {
+    return TextField(
+      controller: optionController.pwController,
+      onChanged: (text) {
+        if (text.isNotEmpty) {
+          optionController.pwIconVisible(true);
+        } else {
+          optionController.pwIconVisible(false);
+        }
+
+        if (text.length >= 10 && text.length <= 20) {
+          optionController.createPassword(true);
+        } else {
+          optionController.createPassword(false);
+        }
+      },
+      style: TextStyle(
+          color: optionController.pwVisible.value ? Colors.black : Colors.white,
+          fontSize: 20),
+      cursorColor: main_color,
+      decoration: InputDecoration(
+          suffixIcon: optionController.pwIconVisible.value
+              ? SizedBox(
+                  width: PhoneSize.width * 0.15,
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          optionController
+                              .pwVisible(!optionController.pwVisible.value);
+                        },
+                        child: Icon(
+                          optionController.pwVisible.value
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                          size: PhoneSize.width * 0.07,
+                          color: optionController.pwVisible.value
+                              ? main_color
+                              : Colors.grey.withOpacity(0.7),
+                        ),
+                      ),
+                      SizedBox(
+                        width: PhoneSize.width * 0.01,
+                      ),
+                      Icon(
+                        Icons.check,
+                        size: PhoneSize.width * 0.07,
+                        color: optionController.createPassword.value
+                            ? main_color
+                            : Colors.grey.withOpacity(0.7),
+                      )
+                    ],
+                  ),
+                )
+              : null,
+          focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: main_color, width: 1.5)),
+          hintText: '비밀번호 (10~20자리 이내)',
+          hintStyle:
+              TextStyle(color: Colors.grey.withOpacity(0.5), fontSize: 18.0)),
+    );
+  });
+}
+
+Widget _checkPassword(OptionController optionController) {
+  return Obx(() {
+    return TextField(
+      controller: optionController.pwCheckController,
+      onChanged: (text) {
+        if (text.isNotEmpty) {
+          optionController.checkPWIconVisible(true);
+        } else {
+          optionController.checkPWIconVisible(false);
+        }
+
+        if (text == optionController.pwController.text) {
+          optionController.checkPw(true);
+        } else {
+          optionController.checkPw(false);
+        }
+      },
+      style: TextStyle(
+          color: optionController.checkPwVisible.value
+              ? Colors.black
+              : Colors.white,
+          fontSize: 20),
+      cursorColor: main_color,
+      decoration: InputDecoration(
+          suffixIcon: optionController.checkPWIconVisible.value
+              ? SizedBox(
+                  width: PhoneSize.width * 0.15,
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          optionController.checkPwVisible(
+                              !optionController.checkPwVisible.value);
+                        },
+                        child: Icon(
+                          optionController.checkPwVisible.value
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                          size: PhoneSize.width * 0.07,
+                          color: optionController.checkPwVisible.value
+                              ? main_color
+                              : Colors.grey.withOpacity(0.7),
+                        ),
+                      ),
+                      SizedBox(
+                        width: PhoneSize.width * 0.01,
+                      ),
+                      Icon(
+                        Icons.check,
+                        size: PhoneSize.width * 0.07,
+                        color: optionController.checkPw.value
+                            ? main_color
+                            : Colors.grey.withOpacity(0.7),
+                      )
+                    ],
+                  ),
+                )
+              : null,
+          focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: main_color, width: 1.5)),
+          hintText: '비밀번호 확인',
+          hintStyle:
+              TextStyle(color: Colors.grey.withOpacity(0.5), fontSize: 18.0)),
+    );
+  });
 }

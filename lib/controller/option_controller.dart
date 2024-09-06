@@ -10,22 +10,29 @@ class OptionController extends GetxController {
   bool signUp_checkSecond = false;
   bool signUp_checkThird = false;
 
-  // SignUp First Step Page
+  // SignUp Step First  Page
   bool signUp_FirstStep = false;
   final phoneNumberValidation = false.obs;
   final phoneNumberAuthentication = false.obs;
 
-  // SignUp First Second Page
-  final passwordController = TextEditingController();
-  final passwordCheckController = TextEditingController();
+  // SignUp Step Second Page
+  final pwController = TextEditingController();
+  final pwCheckController = TextEditingController();
+
   final createId = false.obs;
+  final idIconVisible = false.obs;
+
   final createPassword = false.obs;
-  final checkPassword = false.obs;
+  final pwVisible = false.obs;
+  final pwIconVisible = false.obs;
+
+  final checkPw = false.obs;
+  final checkPwVisible = false.obs;
+  final checkPWIconVisible = false.obs;
 
   // DropDown
   var agency = ['SKT', 'KT', 'LG U+'];
   var agency_value = 'SKT';
-
   var email = ['gmail.com', 'naver.com', 'daum.net'];
   var selected_email = 'gmail.com';
 

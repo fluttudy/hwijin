@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:setting_check/controller/option_controller.dart';
 import 'package:setting_check/controller/textfield_controller.dart';
@@ -75,6 +74,7 @@ class _SignUpStepFirstState extends State<SignUpStepFirst> {
                       children: [
                         SizedBox(
                           width: PhoneSize.width,
+                          height: PhoneSize.height * 0.06,
                           child: TextField(
                             cursorColor: main_color,
                             decoration: InputDecoration(
@@ -85,9 +85,12 @@ class _SignUpStepFirstState extends State<SignUpStepFirst> {
                                     fontSize: 18.0)),
                           ),
                         ),
-                        Divider(
-                          thickness: 1.0,
-                          color: Colors.grey.withOpacity(0.5),
+                        SizedBox(
+                          height: PhoneSize.height * 0.02,
+                          child: Divider(
+                            thickness: 1.0,
+                            color: Colors.grey.withOpacity(0.5),
+                          ),
                         ),
                       ],
                     ),
@@ -97,38 +100,44 @@ class _SignUpStepFirstState extends State<SignUpStepFirst> {
                     height: PhoneSize.height * 0.08,
                     padding: main_padding * 2,
                     child: Column(children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: PhoneSize.width * 0.35,
-                            child: TextField(
-                              style: TextStyle(fontSize: 20),
-                              cursorColor: main_color,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: '생년월일 6자리',
-                                  hintStyle: TextStyle(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      fontSize: 18.0)),
-                            ),
-                          ),
-                          SizedBox(
-                            child: Text('-'),
-                          ),
-                          SizedBox(
-                            width: PhoneSize.width * 0.35,
-                            child: TextField(
+                      SizedBox(
+                        height: PhoneSize.height * 0.06,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: PhoneSize.width * 0.35,
+                              child: TextField(
                                 style: TextStyle(fontSize: 20),
+                                cursorColor: main_color,
                                 decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                )),
-                          ),
-                        ],
+                                    border: InputBorder.none,
+                                    hintText: '생년월일 6자리',
+                                    hintStyle: TextStyle(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        fontSize: 18.0)),
+                              ),
+                            ),
+                            SizedBox(
+                              child: Text('-'),
+                            ),
+                            SizedBox(
+                              width: PhoneSize.width * 0.35,
+                              child: TextField(
+                                  style: TextStyle(fontSize: 20),
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                  )),
+                            ),
+                          ],
+                        ),
                       ),
-                      Divider(
-                        thickness: 1.0,
-                        color: Colors.grey.withOpacity(0.5),
+                      SizedBox(
+                        height: PhoneSize.height * 0.02,
+                        child: Divider(
+                          thickness: 1.0,
+                          color: Colors.grey.withOpacity(0.5),
+                        ),
                       ),
                     ]),
                   ),
@@ -138,87 +147,96 @@ class _SignUpStepFirstState extends State<SignUpStepFirst> {
                     height: PhoneSize.height * 0.08,
                     padding: main_padding * 2,
                     child: Column(children: [
-                      Row(
-                        children: [
-                          DropdownButton(
-                            value: optionController.agency_value,
-                            items: optionController.agency.map((value) {
-                              return DropdownMenuItem(
-                                value: value,
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      right: PhoneSize.width * 0.1),
-                                  child: Text(
-                                    value,
-                                    style: TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.w400),
+                      SizedBox(
+                        height: PhoneSize.height * 0.06,
+                        child: Row(
+                          children: [
+                            DropdownButton(
+                              value: optionController.agency_value,
+                              items: optionController.agency.map((value) {
+                                return DropdownMenuItem(
+                                  value: value,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        right: PhoneSize.width * 0.1),
+                                    child: Text(
+                                      value,
+                                      style: TextStyle(
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.w400),
+                                    ),
                                   ),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (v) {
-                              optionController.update_dropDownAgency(v!);
-                            },
-                            underline: SizedBox(),
-                            icon: Icon(
-                              Icons.keyboard_arrow_down,
-                              color: Colors.grey,
+                                );
+                              }).toList(),
+                              onChanged: (v) {
+                                optionController.update_dropDownAgency(v!);
+                              },
+                              underline: SizedBox(),
+                              icon: Icon(
+                                Icons.keyboard_arrow_down,
+                                color: Colors.grey,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                              width: PhoneSize.width * 0.3,
-                              child: TextField(
-                                controller: phoneNumberController,
-                                onChanged: (text) {
-                                  if (text.length > 10) {
-                                    optionController
-                                        .phoneNumberValidation(true);
-                                  } else {
-                                    optionController
-                                        .phoneNumberValidation(false);
-                                  }
-                                },
-                                cursorColor: main_color,
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: '휴대폰 번호',
-                                    hintStyle: TextStyle(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        fontSize: 18.0)),
-                              )),
-                          Expanded(
-                              child: Container(
-                                  alignment: Alignment.centerRight,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        if (!_isClicked) {
-                                          _isClicked = !_isClicked;
-                                        }
-                                      });
-                                    },
-                                    child: Obx(() {
-                                      return Text(
-                                        _isClicked &&
-                                                optionController
-                                                    .phoneNumberValidation.value
-                                            ? '다시요청'
-                                            : '인증요청',
-                                        style: TextStyle(
-                                            color: optionController
-                                                    .phoneNumberValidation.value
-                                                ? Color.fromRGBO(0, 179, 117, 1)
-                                                : Colors.grey,
-                                            fontSize: 16.0),
-                                      );
-                                    }),
-                                  )))
-                        ],
+                            SizedBox(
+                                width: PhoneSize.width * 0.3,
+                                child: TextField(
+                                  controller: phoneNumberController,
+                                  onChanged: (text) {
+                                    if (text.length > 10) {
+                                      optionController
+                                          .phoneNumberValidation(true);
+                                    } else {
+                                      optionController
+                                          .phoneNumberValidation(false);
+                                    }
+                                  },
+                                  cursorColor: main_color,
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: '휴대폰 번호',
+                                      hintStyle: TextStyle(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          fontSize: 18.0)),
+                                )),
+                            Expanded(
+                                child: Container(
+                                    alignment: Alignment.centerRight,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          if (!_isClicked) {
+                                            _isClicked = !_isClicked;
+                                          }
+                                        });
+                                      },
+                                      child: Obx(() {
+                                        return Text(
+                                          _isClicked &&
+                                                  optionController
+                                                      .phoneNumberValidation
+                                                      .value
+                                              ? '다시요청'
+                                              : '인증요청',
+                                          style: TextStyle(
+                                              color: optionController
+                                                      .phoneNumberValidation
+                                                      .value
+                                                  ? Color.fromRGBO(
+                                                      0, 179, 117, 1)
+                                                  : Colors.grey,
+                                              fontSize: 16.0),
+                                        );
+                                      }),
+                                    )))
+                          ],
+                        ),
                       ),
-                      Divider(
-                        thickness: 1.0,
-                        color: Colors.grey.withOpacity(0.5),
+                      SizedBox(
+                        height: PhoneSize.height * 0.02,
+                        child: Divider(
+                          thickness: 1.0,
+                          color: Colors.grey.withOpacity(0.5),
+                        ),
                       ),
                     ]),
                   ),
@@ -228,36 +246,44 @@ class _SignUpStepFirstState extends State<SignUpStepFirst> {
                           height: PhoneSize.height * 0.08,
                           padding: main_padding * 2,
                           child: Column(children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(
-                                  width: PhoneSize.width * 0.7,
-                                  child: TextField(
-                                    onChanged: (text) {
-                                      if (text.length == 6) {
-                                        optionController
-                                            .phoneNumberAuthentication(true);
-                                      } else {
-                                        optionController
-                                            .phoneNumberAuthentication(false);
-                                      }
-                                    },
-                                    style: TextStyle(fontSize: 20),
-                                    cursorColor: main_color,
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: '인증번호 6자리',
-                                        hintStyle: TextStyle(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            fontSize: 18.0)),
+                            SizedBox(
+                              height: PhoneSize.height * 0.06,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    width: PhoneSize.width * 0.7,
+                                    child: TextField(
+                                      onChanged: (text) {
+                                        if (text.length == 6) {
+                                          optionController
+                                              .phoneNumberAuthentication(true);
+                                        } else {
+                                          optionController
+                                              .phoneNumberAuthentication(false);
+                                        }
+                                      },
+                                      style: TextStyle(fontSize: 20),
+                                      cursorColor: main_color,
+                                      decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: '인증번호 6자리',
+                                          hintStyle: TextStyle(
+                                              color:
+                                                  Colors.grey.withOpacity(0.5),
+                                              fontSize: 18.0)),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                            Divider(
-                              thickness: 1.0,
-                              color: Colors.grey.withOpacity(0.5),
+                            SizedBox(
+                              height: PhoneSize.height * 0.02,
+                              child: Divider(
+                                thickness: 1.0,
+                                color: Colors.grey.withOpacity(0.5),
+                              ),
                             ),
                           ]),
                         )

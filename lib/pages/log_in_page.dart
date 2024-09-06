@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:setting_check/pages/sign_up_page.dart';
-import 'package:setting_check/utils/paddings.dart';
 import 'package:setting_check/utils/phone_size.dart';
 
 class LogInPage extends StatelessWidget {

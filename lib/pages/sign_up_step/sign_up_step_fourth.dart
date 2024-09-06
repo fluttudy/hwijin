@@ -1,13 +1,10 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:setting_check/controller/option_controller.dart';
 import 'package:setting_check/controller/textfield_controller.dart';
 import 'package:setting_check/pages/sign_up_complete_page.dart';
-import 'package:setting_check/pages/sign_up_step/sign_up_step_second.dart';
 import 'package:setting_check/utils/colors.dart';
 import 'package:setting_check/utils/paddings.dart';
 import 'package:setting_check/utils/phone_size.dart';
@@ -25,8 +22,6 @@ class _SignUpStepFourthState extends State<SignUpStepFourth> {
   final textFieldController = Get.put(TextFieldController());
 
   final phoneNumberController = TextEditingController();
-
-  final bool _isClicked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +66,7 @@ class _SignUpStepFourthState extends State<SignUpStepFourth> {
                       children: [
                         SizedBox(
                           width: PhoneSize.width,
+                          height: PhoneSize.height * 0.06,
                           child: TextField(
                             cursorColor: main_color,
                             decoration: InputDecoration(
@@ -81,9 +77,12 @@ class _SignUpStepFourthState extends State<SignUpStepFourth> {
                                     fontSize: 18.0)),
                           ),
                         ),
-                        Divider(
-                          thickness: 1.0,
-                          color: Colors.grey.withOpacity(0.5),
+                        SizedBox(
+                          height: PhoneSize.height * 0.02,
+                          child: Divider(
+                            thickness: 1.0,
+                            color: Colors.grey.withOpacity(0.5),
+                          ),
                         ),
                       ],
                     ),

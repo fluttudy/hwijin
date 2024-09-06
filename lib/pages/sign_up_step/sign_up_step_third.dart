@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:setting_check/controller/option_controller.dart';
-import 'package:setting_check/pages/sign_up_step/sign_up_step_first.dart';
 import 'package:setting_check/pages/sign_up_step/sign_up_step_fourth.dart';
 import 'package:setting_check/utils/colors.dart';
 import 'package:setting_check/utils/paddings.dart';
@@ -38,55 +35,61 @@ class SignUpStepThird extends StatelessWidget {
                   child: SizedBox(
                     height: PhoneSize.height * 0.08,
                     child: Column(children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: PhoneSize.width * 0.35,
-                            child: const TextField(
-                              style: TextStyle(fontSize: 20),
-                              cursorColor: main_color,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
+                      SizedBox(
+                        height: PhoneSize.height * 0.06,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: PhoneSize.width * 0.35,
+                              child: const TextField(
+                                style: TextStyle(fontSize: 20),
+                                cursorColor: main_color,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            child: Text(
-                              '@',
-                              style: TextStyle(fontSize: 18.0),
-                            ),
-                          ),
-                          SizedBox(
-                            width: PhoneSize.width * 0.35,
-                            child: DropdownButton(
-                              value: optionController.selected_email,
-                              items: optionController.email.map((value) {
-                                return DropdownMenuItem(
-                                  value: value,
-                                  child: Text(
-                                    value,
-                                    style: const TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (v) {
-                                optionController.update_dropDownEmail(v!);
-                              },
-                              underline: const SizedBox(),
-                              icon: const Icon(
-                                Icons.keyboard_arrow_down,
-                                color: Colors.grey,
+                            const SizedBox(
+                              child: Text(
+                                '@',
+                                style: TextStyle(fontSize: 18.0),
                               ),
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              width: PhoneSize.width * 0.35,
+                              child: DropdownButton(
+                                value: optionController.selected_email,
+                                items: optionController.email.map((value) {
+                                  return DropdownMenuItem(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      style: const TextStyle(
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (v) {
+                                  optionController.update_dropDownEmail(v!);
+                                },
+                                underline: const SizedBox(),
+                                icon: const Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      Divider(
-                        thickness: 1.0,
-                        color: Colors.grey.withOpacity(0.5),
+                      SizedBox(
+                        height: PhoneSize.height * 0.02,
+                        child: Divider(
+                          thickness: 1.0,
+                          color: Colors.grey.withOpacity(0.5),
+                        ),
                       ),
                     ]),
                   ),
@@ -177,7 +180,7 @@ class SignUpStepThird extends StatelessWidget {
                                   color: optionController.createId.value &&
                                           optionController
                                               .createPassword.value &&
-                                          optionController.checkPassword.value
+                                          optionController.checkPw.value
                                       ? const Color.fromRGBO(0, 179, 117, 1)
                                       : Colors.grey,
                                 ),

@@ -26,6 +26,9 @@ class OptionController extends GetxController {
   var agency = ['SKT', 'KT', 'LG U+'];
   var agency_value = 'SKT';
 
+  var email = ['gmail.com', 'naver.com', 'daum.net'];
+  var selected_email = 'gmail.com';
+
   void update_SignUpCheckAll(bool value) {
     signUp_checkAll = value;
     signUp_checkFirst = value;
@@ -57,8 +60,13 @@ class OptionController extends GetxController {
     update();
   }
 
-  void update_dropDown(String value) {
+  void update_dropDownAgency(String value) {
     agency_value = value;
+    update();
+  }
+
+  void update_dropDownEmail(String value) {
+    selected_email = value;
     update();
   }
 }

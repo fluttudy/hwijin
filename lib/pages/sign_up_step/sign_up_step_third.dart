@@ -1,14 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:setting_check/controller/option_controller.dart';
 import 'package:setting_check/pages/sign_up_step/sign_up_step_first.dart';
-import 'package:setting_check/pages/sign_up_step/sign_up_step_third.dart';
+import 'package:setting_check/pages/sign_up_step/sign_up_step_fourth.dart';
 import 'package:setting_check/utils/colors.dart';
 import 'package:setting_check/utils/paddings.dart';
 import 'package:setting_check/utils/phone_size.dart';
 
-class SignUpStepSecond extends StatelessWidget {
-  SignUpStepSecond({super.key});
+class SignUpStepThird extends StatelessWidget {
+  SignUpStepThird({super.key});
 
   final optionController = Get.find<OptionController>();
 
@@ -31,77 +33,123 @@ class SignUpStepSecond extends StatelessWidget {
                         main_padding.copyWith(top: PhoneSize.height * 0.01) * 2,
                     child: _pageInfo()),
                 Padding(
-                    padding:
-                        main_padding.copyWith(top: PhoneSize.height * 0.01) * 2,
-                    child: Column(
+                  padding:
+                      main_padding.copyWith(top: PhoneSize.height * 0.01) * 2,
+                  child: SizedBox(
+                    height: PhoneSize.height * 0.08,
+                    child: Column(children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: PhoneSize.width * 0.35,
+                            child: const TextField(
+                              style: TextStyle(fontSize: 20),
+                              cursorColor: main_color,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            child: Text(
+                              '@',
+                              style: TextStyle(fontSize: 18.0),
+                            ),
+                          ),
+                          SizedBox(
+                            width: PhoneSize.width * 0.35,
+                            child: DropdownButton(
+                              value: optionController.selected_email,
+                              items: optionController.email.map((value) {
+                                return DropdownMenuItem(
+                                  value: value,
+                                  child: Text(
+                                    value,
+                                    style: const TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (v) {
+                                optionController.update_dropDownEmail(v!);
+                              },
+                              underline: const SizedBox(),
+                              icon: const Icon(
+                                Icons.keyboard_arrow_down,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Divider(
+                        thickness: 1.0,
+                        color: Colors.grey.withOpacity(0.5),
+                      ),
+                    ]),
+                  ),
+                ),
+                Container(
+                    width: PhoneSize.width,
+                    height: PhoneSize.height * 0.05,
+                    padding: main_padding * 2,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TextField(
-                          onChanged: (text) {
-                            if (text.length > 3) {
-                              optionController.createId(true);
-                            } else {
-                              optionController.createId(false);
-                            }
-                          },
-                          style: const TextStyle(fontSize: 20),
-                          cursorColor: main_color,
-                          decoration: InputDecoration(
-                              focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: main_color, width: 1.5)),
-                              hintText: '아이디 (4~13자리 이내)',
-                              hintStyle: TextStyle(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  fontSize: 18.0)),
+                        Container(
+                          padding: EdgeInsets.all(12 - PhoneSize.width * 0.015),
+                          child: Icon(
+                            Icons.circle,
+                            size: PhoneSize.width * 0.015,
+                          ),
                         ),
                         SizedBox(
-                          height: PhoneSize.height * 0.01,
+                          width: PhoneSize.width * 0.01,
                         ),
-                        TextField(
-                          controller: optionController.passwordController,
-                          obscureText: true,
-                          onChanged: (text) {
-                            if (text.length > 9) {
-                              optionController.createPassword(true);
-                            } else {
-                              optionController.createPassword(false);
-                            }
-                          },
-                          style: const TextStyle(fontSize: 20),
-                          cursorColor: main_color,
-                          decoration: InputDecoration(
-                              focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: main_color, width: 1.5)),
-                              hintText: '비밀번호 (10~20자리 이내)',
-                              hintStyle: TextStyle(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  fontSize: 18.0)),
+                        Expanded(
+                          child: SizedBox(
+                            height: PhoneSize.height * 0.05,
+                            child: const Text(
+                              '스타벅스커피 코리아의 새로운 서비스와 최신 이벤트 정보를 이메일로 보내드려요.',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
+                Container(
+                    width: PhoneSize.width,
+                    height: PhoneSize.height * 0.05,
+                    padding: main_padding * 2,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(12 - PhoneSize.width * 0.015),
+                          child: Icon(
+                            Icons.circle,
+                            size: PhoneSize.width * 0.015,
+                          ),
                         ),
                         SizedBox(
-                          height: PhoneSize.height * 0.01,
+                          width: PhoneSize.width * 0.01,
                         ),
-                        TextField(
-                          controller: optionController.passwordCheckController,
-                          obscureText: true,
-                          onChanged: (text) {
-                            if (text ==
-                                optionController.passwordController.text) {
-                              optionController.checkPassword(true);
-                            } else {
-                              optionController.checkPassword(false);
-                            }
-                          },
-                          style: const TextStyle(fontSize: 20),
-                          cursorColor: main_color,
-                          decoration: InputDecoration(
-                              focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: main_color, width: 1.5)),
-                              hintText: '비밀번호 확인',
-                              hintStyle: TextStyle(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  fontSize: 18.0)),
+                        Expanded(
+                          child: SizedBox(
+                            height: PhoneSize.height * 0.05,
+                            child: const Text(
+                              '주요 공지사항 및 이벤트 당첨안내 등 일부 소식은 수신동의 여부와 관계없이 발송됩니다.',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12.0,
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     )),
@@ -115,11 +163,7 @@ class SignUpStepSecond extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            optionController.createId.value &&
-                                    optionController.createPassword.value &&
-                                    optionController.checkPassword.value
-                                ? Get.to(SignUpStepThird())
-                                : null;
+                            Get.to(const SignUpStepFourth());
                           },
                           child: Obx(
                             () {
@@ -191,15 +235,15 @@ Widget _appBar() {
             ),
             Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-                color: Colors.black,
+                border: Border.all(color: Colors.grey),
+                color: Colors.white,
                 shape: BoxShape.circle,
               ),
               child: const Padding(
                 padding: EdgeInsets.all(5.0),
                 child: Text(
                   '2',
-                  style: TextStyle(color: Colors.white, fontSize: 14.0),
+                  style: TextStyle(color: Colors.grey, fontSize: 14.0),
                 ),
               ),
             ),
@@ -209,15 +253,15 @@ Widget _appBar() {
             ),
             Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                color: Colors.white,
+                border: Border.all(),
+                color: Colors.black,
                 shape: BoxShape.circle,
               ),
               child: const Padding(
                 padding: EdgeInsets.all(5.0),
                 child: Text(
                   '3',
-                  style: TextStyle(color: Colors.grey, fontSize: 14.0),
+                  style: TextStyle(color: Colors.white, fontSize: 14.0),
                 ),
               ),
             ),
@@ -264,7 +308,7 @@ Widget _pageInfo() {
       alignment: Alignment.centerLeft,
       width: PhoneSize.width,
       child: const Text(
-        '아이디와 비밀번호를\n입력해 주세요.',
+        '이메일을\n입력해주세요.',
         style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w500),
       ));
 }

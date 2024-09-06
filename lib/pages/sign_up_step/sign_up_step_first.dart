@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:setting_check/controller/option_controller.dart';
 import 'package:setting_check/controller/textfield_controller.dart';
 import 'package:setting_check/pages/sign_up_step/sign_up_step_second.dart';
+import 'package:setting_check/utils/colors.dart';
 import 'package:setting_check/utils/paddings.dart';
 import 'package:setting_check/utils/phone_size.dart';
 import 'package:setting_check/utils/text_style.dart';
@@ -30,283 +32,315 @@ class _SignUpStepFirstState extends State<SignUpStepFirst> {
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: GetBuilder<OptionController>(builder: (context) {
-          return Center(
-            child: Column(
-              children: [
-                // AppBar
-                Padding(padding: main_padding, child: _appBar()),
+          return SafeArea(
+            child: Center(
+              child: Column(
+                children: [
+                  // AppBar
+                  Padding(padding: main_padding, child: _appBar()),
 
-                // Main Info
-                Padding(
-                    padding:
-                        main_padding.copyWith(top: PhoneSize.height * 0.01) * 2,
-                    child: _pageInfo()),
+                  // Main Info
+                  Padding(
+                      padding:
+                          main_padding.copyWith(top: PhoneSize.height * 0.01) *
+                              2,
+                      child: _pageInfo()),
 
-                SizedBox(
-                  height: PhoneSize.height * 0.01,
-                ),
+                  SizedBox(
+                    height: PhoneSize.height * 0.01,
+                  ),
 
-                // Main, Sub Options
-                Padding(
+                  // Main, Sub Options
+                  Padding(
+                      padding: main_padding * 2,
+                      child: Column(
+                        children: [
+                          _options(optionController),
+                          SizedBox(
+                            height: PhoneSize.height * 0.01,
+                          ),
+                          optionController.signUp_FirstStep
+                              ? Container()
+                              : _subOptions(),
+                        ],
+                      )),
+                  const Divider(
+                    thickness: 1.0,
+                  ),
+
+                  Container(
+                    height: PhoneSize.height * 0.08,
                     padding: main_padding * 2,
                     child: Column(
                       children: [
-                        _options(optionController),
                         SizedBox(
-                          height: PhoneSize.height * 0.01,
+                          width: PhoneSize.width,
+                          child: TextField(
+                            cursorColor: main_color,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: '이름',
+                                hintStyle: TextStyle(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    fontSize: 18.0)),
+                          ),
                         ),
-                        optionController.signUp_FirstStep
-                            ? Container()
-                            : _subOptions(),
+                        Divider(
+                          thickness: 1.0,
+                          color: Colors.grey.withOpacity(0.5),
+                        ),
                       ],
-                    )),
-                const Divider(
-                  thickness: 1.0,
-                ),
+                    ),
+                  ),
 
-                Container(
-                  height: PhoneSize.height * 0.1,
-                  padding: main_padding * 2,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: PhoneSize.width,
-                        child: TextField(
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: '이름',
-                              hintStyle: TextStyle(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  fontSize: 18.0)),
-                        ),
+                  Container(
+                    height: PhoneSize.height * 0.08,
+                    padding: main_padding * 2,
+                    child: Column(children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: PhoneSize.width * 0.35,
+                            child: TextField(
+                              style: TextStyle(fontSize: 20),
+                              cursorColor: main_color,
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: '생년월일 6자리',
+                                  hintStyle: TextStyle(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      fontSize: 18.0)),
+                            ),
+                          ),
+                          SizedBox(
+                            child: Text('-'),
+                          ),
+                          SizedBox(
+                            width: PhoneSize.width * 0.35,
+                            child: TextField(
+                                style: TextStyle(fontSize: 20),
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                )),
+                          ),
+                        ],
                       ),
                       Divider(
                         thickness: 1.0,
                         color: Colors.grey.withOpacity(0.5),
                       ),
-                    ],
+                    ]),
                   ),
-                ),
 
-                Container(
-                  height: PhoneSize.height * 0.1,
-                  padding: main_padding * 2,
-                  child: Column(children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: PhoneSize.width * 0.35,
-                          child: TextField(
-                            style: TextStyle(fontSize: 20),
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: '생년월일 6자리',
-                                hintStyle: TextStyle(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    fontSize: 18.0)),
-                          ),
-                        ),
-                        SizedBox(
-                          width: PhoneSize.width * 0.02,
-                          child: Divider(
-                            thickness: 1.0,
-                          ),
-                        ),
-                        SizedBox(
-                          width: PhoneSize.width * 0.35,
-                          child: TextField(
-                              style: TextStyle(fontSize: 20),
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                              )),
-                        ),
-                      ],
-                    ),
-                    Divider(
-                      thickness: 1.0,
-                      color: Colors.grey.withOpacity(0.5),
-                    ),
-                  ]),
-                ),
-
-                Container(
-                  width: PhoneSize.width,
-                  height: PhoneSize.height * 0.1,
-                  padding: main_padding * 2,
-                  child: Column(children: [
-                    Row(
-                      children: [
-                        DropdownButton(
-                          value: optionController.agency_value,
-                          items: optionController.agency.map((value) {
-                            return DropdownMenuItem(
-                              value: value,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    right: PhoneSize.width * 0.1),
-                                child: Text(
-                                  value,
-                                  style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (v) {
-                            optionController.update_dropDown(v!);
-                          },
-                          underline: SizedBox(),
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        SizedBox(
-                            width: PhoneSize.width * 0.3,
-                            child: TextField(
-                              controller: phoneNumberController,
-                              onChanged: (text) {
-                                if (text.length > 10) {
-                                  optionController.phoneNumberValidation(true);
-                                } else {
-                                  optionController.phoneNumberValidation(false);
-                                }
-                              },
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: '휴대폰 번호',
-                                  hintStyle: TextStyle(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      fontSize: 18.0)),
-                            )),
-                        Expanded(
-                            child: Container(
-                                alignment: Alignment.centerRight,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _isClicked = !_isClicked;
-                                    });
-                                  },
-                                  child: Obx(() {
-                                    return Text(
-                                      _isClicked &&
-                                              optionController
-                                                  .phoneNumberValidation.value
-                                          ? '다시요청'
-                                          : '인증요청',
-                                      style: TextStyle(
-                                          color: optionController
-                                                  .phoneNumberValidation.value
-                                              ? Color.fromRGBO(0, 179, 117, 1)
-                                              : Colors.grey,
-                                          fontSize: 16.0),
-                                    );
-                                  }),
-                                )))
-                      ],
-                    ),
-                    Divider(
-                      thickness: 1.0,
-                      color: Colors.grey.withOpacity(0.5),
-                    ),
-                  ]),
-                ),
-
-                Container(
-                  height: PhoneSize.height * 0.1,
-                  padding: main_padding * 2,
-                  child: Column(children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: PhoneSize.width * 0.7,
-                          child: TextField(
-                            onChanged: (text) {
-                              if (text.length == 6) {
-                                optionController
-                                    .phoneNumberAuthentication(true);
-                              } else {
-                                optionController
-                                    .phoneNumberAuthentication(false);
-                              }
-                            },
-                            style: TextStyle(fontSize: 20),
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: '인증번호 6자리',
-                                hintStyle: TextStyle(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    fontSize: 18.0)),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Divider(
-                      thickness: 1.0,
-                      color: Colors.grey.withOpacity(0.5),
-                    ),
-                  ]),
-                ),
-
-                Container(
-                    height: PhoneSize.height * 0.05,
+                  Container(
+                    width: PhoneSize.width,
+                    height: PhoneSize.height * 0.08,
                     padding: main_padding * 2,
-                    child: Text(
-                      '타인의 개인정보를 도용하여 가입한 경우, 서비스 이용 제한 및 법적 제재를 받으실 수 있습니다.',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 12.0,
-                      ),
-                    )),
-
-                Expanded(
-                  child: Padding(
-                    padding: main_padding.copyWith(
-                            bottom: PhoneSize.height * 0.015) *
-                        2,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            optionController.phoneNumberAuthentication.value
-                                ? Get.to(SignUpStepSecond())
-                                : null;
-                          },
-                          child: Obx(
-                            () {
-                              return Container(
-                                alignment: Alignment.center,
-                                width: PhoneSize.width,
-                                height: PhoneSize.height * 0.07,
-                                decoration: BoxDecoration(
-                                  border: Border.all(width: 0),
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  color: optionController
-                                          .phoneNumberAuthentication.value
-                                      ? Color.fromRGBO(0, 179, 117, 1)
-                                      : Colors.grey,
-                                ),
-                                child: const Text(
-                                  '다음',
-                                  style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white),
+                    child: Column(children: [
+                      Row(
+                        children: [
+                          DropdownButton(
+                            value: optionController.agency_value,
+                            items: optionController.agency.map((value) {
+                              return DropdownMenuItem(
+                                value: value,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      right: PhoneSize.width * 0.1),
+                                  child: Text(
+                                    value,
+                                    style: TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.w400),
+                                  ),
                                 ),
                               );
+                            }).toList(),
+                            onChanged: (v) {
+                              optionController.update_dropDownAgency(v!);
                             },
+                            underline: SizedBox(),
+                            icon: Icon(
+                              Icons.keyboard_arrow_down,
+                              color: Colors.grey,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                          SizedBox(
+                              width: PhoneSize.width * 0.3,
+                              child: TextField(
+                                controller: phoneNumberController,
+                                onChanged: (text) {
+                                  if (text.length > 10) {
+                                    optionController
+                                        .phoneNumberValidation(true);
+                                  } else {
+                                    optionController
+                                        .phoneNumberValidation(false);
+                                  }
+                                },
+                                cursorColor: main_color,
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: '휴대폰 번호',
+                                    hintStyle: TextStyle(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        fontSize: 18.0)),
+                              )),
+                          Expanded(
+                              child: Container(
+                                  alignment: Alignment.centerRight,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        if (!_isClicked) {
+                                          _isClicked = !_isClicked;
+                                        }
+                                      });
+                                    },
+                                    child: Obx(() {
+                                      return Text(
+                                        _isClicked &&
+                                                optionController
+                                                    .phoneNumberValidation.value
+                                            ? '다시요청'
+                                            : '인증요청',
+                                        style: TextStyle(
+                                            color: optionController
+                                                    .phoneNumberValidation.value
+                                                ? Color.fromRGBO(0, 179, 117, 1)
+                                                : Colors.grey,
+                                            fontSize: 16.0),
+                                      );
+                                    }),
+                                  )))
+                        ],
+                      ),
+                      Divider(
+                        thickness: 1.0,
+                        color: Colors.grey.withOpacity(0.5),
+                      ),
+                    ]),
                   ),
-                )
-              ],
+
+                  _isClicked
+                      ? Container(
+                          height: PhoneSize.height * 0.08,
+                          padding: main_padding * 2,
+                          child: Column(children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width: PhoneSize.width * 0.7,
+                                  child: TextField(
+                                    onChanged: (text) {
+                                      if (text.length == 6) {
+                                        optionController
+                                            .phoneNumberAuthentication(true);
+                                      } else {
+                                        optionController
+                                            .phoneNumberAuthentication(false);
+                                      }
+                                    },
+                                    style: TextStyle(fontSize: 20),
+                                    cursorColor: main_color,
+                                    decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: '인증번호 6자리',
+                                        hintStyle: TextStyle(
+                                            color: Colors.grey.withOpacity(0.5),
+                                            fontSize: 18.0)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Divider(
+                              thickness: 1.0,
+                              color: Colors.grey.withOpacity(0.5),
+                            ),
+                          ]),
+                        )
+                      : Container(),
+
+                  Container(
+                      width: PhoneSize.width,
+                      height: PhoneSize.height * 0.05,
+                      padding: main_padding * 2,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding:
+                                EdgeInsets.all(12 - PhoneSize.width * 0.015),
+                            child: Icon(
+                              Icons.circle,
+                              size: PhoneSize.width * 0.015,
+                            ),
+                          ),
+                          SizedBox(
+                            width: PhoneSize.width * 0.01,
+                          ),
+                          Expanded(
+                            child: SizedBox(
+                              height: PhoneSize.height * 0.05,
+                              child: Text(
+                                '타인의 개인정보를 도용하여 가입한 경우, 서비스 이용 제한 및 법적 제재를 받으실 수 있습니다.',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
+
+                  Expanded(
+                    child: Padding(
+                      padding: main_padding.copyWith(
+                              bottom: PhoneSize.height * 0.015) *
+                          2,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              optionController.phoneNumberAuthentication.value
+                                  ? Get.to(SignUpStepSecond())
+                                  : null;
+                            },
+                            child: Obx(
+                              () {
+                                return Container(
+                                  alignment: Alignment.center,
+                                  width: PhoneSize.width,
+                                  height: PhoneSize.height * 0.05,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(width: 0),
+                                    borderRadius: BorderRadius.circular(30.0),
+                                    color: optionController
+                                            .phoneNumberAuthentication.value
+                                        ? Color.fromRGBO(0, 179, 117, 1)
+                                        : Colors.grey,
+                                  ),
+                                  child: const Text(
+                                    '다음',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.white),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         }));
@@ -395,10 +429,15 @@ Widget _appBar() {
         ),
         Align(
           alignment: Alignment.centerLeft,
-          child: Icon(
-            Icons.close,
-            size: PhoneSize.width * 0.1,
-            color: Colors.grey,
+          child: GestureDetector(
+            onTap: () {
+              Get.back();
+            },
+            child: Icon(
+              Icons.close,
+              size: PhoneSize.width * 0.1,
+              color: Colors.grey,
+            ),
           ),
         )
       ],

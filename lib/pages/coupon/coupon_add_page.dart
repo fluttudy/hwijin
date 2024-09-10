@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:setting_check/controller/option_controller.dart';
@@ -453,97 +455,4 @@ List<Widget> _actions() {
       ),
     )
   ];
-}
-
-Widget _button(OptionController optionController) {
-  return Container(
-    padding: main_padding,
-    height: PhoneSize.height * 0.06,
-    child: Obx(() {
-      return Row(
-        children: [
-          GestureDetector(
-            onTap: () {
-              optionController.coupon_body(1);
-            },
-            child: Container(
-              alignment: Alignment.center,
-              width: PhoneSize.width * 0.45,
-              height: PhoneSize.height * 0.06,
-              decoration: BoxDecoration(
-                  color: optionController.coupon_body.value == 1
-                      ? main_color
-                      : Colors.white,
-                  border: Border(
-                      bottom: BorderSide(
-                        color: optionController.coupon_body.value == 1
-                            ? main_color
-                            : Colors.grey,
-                      ),
-                      left: BorderSide(
-                        color: optionController.coupon_body.value == 1
-                            ? main_color
-                            : Colors.grey,
-                      ),
-                      top: BorderSide(
-                        color: optionController.coupon_body.value == 1
-                            ? main_color
-                            : Colors.grey,
-                      )),
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(5),
-                      bottomLeft: Radius.circular(5))),
-              child: Text(
-                '사용 가능한 쿠폰',
-                style: TextStyle(
-                    color: optionController.coupon_body.value == 1
-                        ? Colors.white
-                        : Colors.grey),
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              optionController.coupon_body(2);
-            },
-            child: Container(
-              alignment: Alignment.center,
-              width: PhoneSize.width * 0.45,
-              height: PhoneSize.height * 0.06,
-              decoration: BoxDecoration(
-                  color: optionController.coupon_body.value == 2
-                      ? main_color
-                      : Colors.white,
-                  border: Border(
-                      bottom: BorderSide(
-                        color: optionController.coupon_body.value == 2
-                            ? main_color
-                            : Colors.grey,
-                      ),
-                      right: BorderSide(
-                        color: optionController.coupon_body.value == 2
-                            ? main_color
-                            : Colors.grey,
-                      ),
-                      top: BorderSide(
-                        color: optionController.coupon_body.value == 2
-                            ? main_color
-                            : Colors.grey,
-                      )),
-                  borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(5),
-                      bottomRight: Radius.circular(5))),
-              child: Text(
-                '쿠폰 히스토리',
-                style: TextStyle(
-                    color: optionController.coupon_body.value == 2
-                        ? Colors.white
-                        : Colors.grey),
-              ),
-            ),
-          ),
-        ],
-      );
-    }),
-  );
 }

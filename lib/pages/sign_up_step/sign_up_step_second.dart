@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:setting_check/controller/option_controller.dart';
-import 'package:setting_check/main.dart';
 import 'package:setting_check/pages/sign_up_step/sign_up_step_third.dart';
 import 'package:setting_check/utils/colors.dart';
 import 'package:setting_check/utils/paddings.dart';

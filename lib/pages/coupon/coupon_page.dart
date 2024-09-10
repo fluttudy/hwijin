@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:setting_check/controller/option_controller.dart';
-import 'package:setting_check/pages/coupon_add_page.dart';
+import 'package:setting_check/pages/alert/alert_page.dart';
+import 'package:setting_check/pages/coupon/coupon_add_page.dart';
 import 'package:setting_check/utils/colors.dart';
 import 'package:setting_check/utils/paddings.dart';
 import 'package:setting_check/utils/phone_size.dart';
@@ -68,7 +69,7 @@ List<Widget> _actions() {
         children: [
           GestureDetector(
             onTap: () {
-              Get.to(CouponAddPage());
+              Get.to(const CouponAddPage());
             },
             child: Icon(
               Icons.add,
@@ -79,10 +80,15 @@ List<Widget> _actions() {
           SizedBox(
             width: PhoneSize.width * 0.02,
           ),
-          Icon(
-            Icons.info_outline,
-            color: Colors.grey.withOpacity(0.5),
-            size: PhoneSize.width * 0.08,
+          GestureDetector(
+            onTap: () {
+              Get.to(const AlertPage());
+            },
+            child: Icon(
+              Icons.info_outline,
+              color: Colors.grey.withOpacity(0.5),
+              size: PhoneSize.width * 0.08,
+            ),
           ),
         ],
       ),
